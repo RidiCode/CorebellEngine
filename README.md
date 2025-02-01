@@ -32,7 +32,7 @@ Corebell Engine is a high-performance 3D web engine designed to create immersive
 ## Usage
 Corebell Engine provides an easy-to-use API for rendering 3D content. Example usage:
 ```js
-import { CorebellEngine } from 'corebell.js';
+import { CorebellEngine } from './assets/js/corebell.js';
 
 const engine = new Corebell();
 engine.init(document.getElementById('canvas'));
