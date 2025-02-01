@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="strict-origin">
+    <link rel="icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script defer src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script defer src="/js/main.js"></script>
+    <title>Interface | Corebell Engine (v0.0.0.002)</title>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="nav-link" href="/" aria-label="Home">
+            <img src="/data/images/Rendani_Logo.png" alt="Rendani's Logo" loading="lazy">
+        </a>
+        <div class="nav-menu">
+            <a class="nav-link" href="/">Editor | Corebell Engine</a>
+            <a class="nav-link" href="/pages/blog/">Blog</a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+    <hr>
+    
+    <h2 class="text-center">Welcome</h2>
+    
+    <div id="dynamic-content" class="text-center margin-20">
+        <h3>3D Scene</h3>
+        <div id="renderCanvasContainer" class="canvas-container">
+            <canvas id="renderCanvas"></canvas>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <footer>
+        <div class="footer-links">
+            <h3>Links</h3>
+            <a target="_blank" class="nav-link" href="mailto:rendaniman@outlook.com"><i class="fas fa-envelope"></i> Email</a>
+            <a target="_blank" class="nav-link" href="https://github.com/sponsors/manugeni"><i class="fas fa-heart"></i> Sponsor</a>
+            <a target="_blank" class="nav-link" href="https://github.com/manugeni"><i class="fab fa-github"></i> GitHub</a>
+            <h3>Apps</h3>
+            <a class="nav-link" href="/apps/corebell/"><i class="fas fa-cogs"></i> Corebell Engine</a>
+        </div>
+    </footer>
+    <p class="text-center">2025 &copy; Rendani Manugeni.</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const canvas = document.getElementById("renderCanvas");
+            const engine = new BABYLON.Engine(canvas, true);
+            const scene = new BABYLON.Scene(engine);
+            
+            const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+            
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
+            
+            engine.runRenderLoop(() => {
+                scene.render();
+            });
+            
+            window.addEventListener("resize", () => engine.resize());
+        });
+    </script>
+</body>
+</html>
