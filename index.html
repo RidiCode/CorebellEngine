@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script defer src="https://cdn.babylonjs.com/babylon.js"></script>
     <script defer src="/js/main.js"></script>
-    <title>Interface | Corebell Engine (v0.0.0.002)</title>
+    <title>Interface | Corebell Editor (v0.2.00)</title>
 </head>
 <body>
     <nav class="navbar">
@@ -17,14 +17,14 @@
             <img src="/data/images/Rendani_Logo.png" alt="Rendani's Logo" loading="lazy">
         </a>
         <div class="nav-menu">
-            <a class="nav-link" href="/">Editor | Corebell Engine</a>
+            <a class="nav-link" href="/">Corebell Engine</a>
             <a class="nav-link" href="/pages/blog/">Blog</a>
         </div>
         <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </nav>
     <hr>
     
-    <h2 class="text-center">Welcome</h2>
+    <h2 class="text-center">Corebell Editor v0.2.00</h2>
     
     <div id="dynamic-content" class="text-center margin-20">
         <h3>3D Scene</h3>
@@ -49,21 +49,35 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const canvas = document.getElementById("renderCanvas");
-            const engine = new BABYLON.Engine(canvas, true);
-            const scene = new BABYLON.Scene(engine);
-            
-            const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
-            camera.attachControl(canvas, true);
-            
-            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
-            
-            engine.runRenderLoop(() => {
-                scene.render();
-            });
-            
-            window.addEventListener("resize", () => engine.resize());
-        });
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true);
+    const scene = new BABYLON.Scene(engine);
+    
+    const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 10, BABYLON.Vector3.Zero(), scene);
+    camera.attachControl(canvas, true);
+    
+    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
+    
+    const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, scene);
+    
+    const gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    const button = BABYLON.GUI.Button.CreateSimpleButton("btn", "Add Cube");
+    button.width = "150px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "blue";
+    button.onPointerUpObservable.add(() => {
+        const box = BABYLON.MeshBuilder.CreateBox("box", {}, scene);
+        box.position.y = 1;
+    });
+    gui.addControl(button);
+    
+    engine.runRenderLoop(() => {
+        scene.render();
+    });
+    
+    window.addEventListener("resize", () => engine.resize());
+});
     </script>
 </body>
 </html>
